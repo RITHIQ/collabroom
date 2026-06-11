@@ -1,0 +1,16 @@
+{
+  "name": "project-pdd",
+  "private": true,
+  "scripts": {
+    "setup": "npm --prefix web install",
+    "dev": "npm --prefix web run dev",
+    "dev:web": "npm --prefix web run dev",
+    "build:web": "npm --prefix web run build",
+    "preview:web": "npm --prefix web run preview",
+    "dev:mobile": "npm --prefix mobile run start"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.106.2",
+    "dotenv": "^17.4.2"
+  }
+}

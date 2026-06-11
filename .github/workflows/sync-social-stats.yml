@@ -1,0 +1,25 @@
+name: Sync social stats
+
+on:
+  schedule:
+    - cron: "*/30 * * * *" # every 30 minutes
+  workflow_dispatch: {}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Supabase Edge Function
+        env:
+          SUPABASE_FUNCTION_URL: ${{ secrets.SUPABASE_FUNCTION_URL }}
+          SUPABASE_FUNCTION_BEARER: ${{ secrets.SUPABASE_FUNCTION_BEARER }}
+        run: |
+          if [ -z "$SUPABASE_FUNCTION_URL" ]; then
+            echo "Missing SUPABASE_FUNCTION_URL secret"
+            exit 1
+          fi
+          curl -sS -X POST "$SUPABASE_FUNCTION_URL" \
+            -H "Authorization: Bearer ${SUPABASE_FUNCTION_BEARER}" \
+            -H "Content-Type: application/json" \
+            --data '{}'
+

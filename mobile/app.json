@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "ColabRoom",
+    "slug": "colabroom",
+    "scheme": "colabroom",
+    "version": "1.0.0",
+    "sdkVersion": "54.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0a0a0a"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.colabroom.mobile"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0a0a0a"
+      },
+      "package": "app.colabroom.mobile",
+      "versionCode": 1,
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "supabaseUrl": "https://xcorhotvnayrboihsdvm.supabase.co",
+      "supabaseAnonKey": "sb_publishable_umiqwHBQxpE2ATCtfYiEMQ_NAl2nNRi"
+    },
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}
