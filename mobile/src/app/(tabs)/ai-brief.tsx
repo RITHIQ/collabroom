@@ -7,13 +7,12 @@ import {
   Pressable,
   ScrollView,
   Share,
-  Clipboard,
   Alert,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import * as Clipboard from 'expo-clipboard';
 import { MotiView, AnimatePresence } from 'moti';
-import { useRouter } from 'expo-router';
 import { colors, spacing, radius, typography, shadows } from '../../theme/tokens';
 import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -88,7 +87,6 @@ function InputField({
 
 // ─── Main Screen ─────────────────────────────────────────────────────────────
 export default function AIBriefScreen() {
-  const router = useRouter();
   const scrollRef = useRef<ScrollView>(null);
 
   // Form fields
@@ -158,7 +156,7 @@ export default function AIBriefScreen() {
 
   const handleCopy = async () => {
     if (!output) return;
-    Clipboard.setString(output);
+    await Clipboard.setStringAsync(output);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
@@ -174,9 +172,6 @@ export default function AIBriefScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       {/* ── Header ── */}
       <View style={styles.header}>
-        <Pressable onPress={() => router.back()} style={styles.backBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-          <Feather name="arrow-left" size={22} color={colors.textPrimary} />
-        </Pressable>
         <View>
           <Text style={styles.headerTitle}>AI Brief Generator</Text>
           <Text style={styles.headerSub}>Powered by ColabRoom AI</Text>
@@ -271,21 +266,21 @@ export default function AIBriefScreen() {
                 disabled={isGenerating || !canGenerate}
               >
                 {isGenerating ? (
-                  <>
+                  <View style={styles.generateButton}>
                     <MotiView
-                      animate={{ rotate: ['0deg', '360deg'] }}
-                      transition={{ loop: true, duration: 1200, type: 'timing' }}
-                      style={{ marginRight: spacing.sm }}
+                      from={{ rotate: '0deg' }} animate={{ rotate: '360deg' }}
+                      transition={{ loop: true, type: 'timing', duration: 1000, easing: Easing.linear }}
+                      style={{ marginRight: 8 }}
                     >
-                      <Feather name="loader" size={16} color="#ffffff" />
+                      <Feather name="loader" size={16} color="#0a0a0a" />
                     </MotiView>
                     <Text style={styles.generateButtonText}>Generating Brief...</Text>
-                  </>
+                  </View>
                 ) : (
-                  <>
-                    <Feather name="zap" size={16} color="#ffffff" style={{ marginRight: spacing.sm }} />
+                  <View style={styles.generateButton}>
+                    <Feather name="zap" size={16} color="#0a0a0a" style={{ marginRight: spacing.sm }} />
                     <Text style={styles.generateButtonText}>Generate AI Brief</Text>
-                  </>
+                  </View>
                 )}
               </Pressable>
             </MotiView>
@@ -305,7 +300,7 @@ export default function AIBriefScreen() {
                 <View style={styles.outputHeader}>
                   <View style={styles.outputTitleRow}>
                     <View style={styles.aiBadgeSm}>
-                      <Feather name="zap" size={11} color="#ffffff" />
+                      <Feather name="zap" size={11} color="#0a0a0a" />
                     </View>
                     <Text style={styles.outputTitle}>Generated Brief</Text>
                   </View>
@@ -358,11 +353,11 @@ export default function AIBriefScreen() {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: 'row', alignItems: 'center',
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingHorizontal: spacing.lg, paddingVertical: spacing.md,
     borderBottomWidth: 1, borderBottomColor: colors.border, gap: spacing.md,
   },
-  backBtn: { width: 36, justifyContent: 'center' },
+  backBtn: { display: 'none' },
   headerTitle: { fontSize: 17, fontWeight: '800', color: colors.textPrimary },
   headerSub: { fontSize: 11, color: colors.textMuted, fontWeight: '500' },
   aiBadge: {
@@ -408,7 +403,7 @@ const styles = StyleSheet.create({
   },
   pillSelected: { backgroundColor: colors.accent, borderColor: colors.accent },
   pillText: { fontSize: 12, fontWeight: '600', color: colors.textSecondary },
-  pillTextSelected: { color: '#ffffff', fontWeight: '700' },
+  pillTextSelected: { color: '#0a0a0a', fontWeight: '700' },
 
   // ── Generate ──
   generateButton: {
@@ -416,7 +411,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.accent, borderRadius: radius.pill, paddingVertical: 16,
   },
   generateButtonPressed: { backgroundColor: colors.accentHover },
-  generateButtonText: { color: '#ffffff', fontSize: 15, fontWeight: '700' },
+  generateButtonText: { color: '#0a0a0a', fontSize: 15, fontWeight: '700' },
 
   // ── Output ──
   outputCard: {

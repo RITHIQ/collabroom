@@ -382,8 +382,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row', alignItems: 'center',
     paddingVertical: spacing.md, borderBottomWidth: 1, borderBottomColor: colors.border, gap: spacing.md,
   },
-  skeletonAvatar: { width: 56, height: 56, borderRadius: 28, backgroundColor: '#E0E0E0', flexShrink: 0 },
-  skeletonLine: { height: 12, backgroundColor: '#E0E0E0', borderRadius: 6 },
+  skeletonAvatar: { width: 56, height: 56, borderRadius: 28, backgroundColor: 'rgba(255,255,255,0.08)', flexShrink: 0 },
+  skeletonLine: { height: 12, backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: 6 },
   emptyContainer: { alignItems: 'center', justifyContent: 'center', paddingVertical: spacing.xxxl },
   emptyTitle: { color: colors.textPrimary, fontSize: typography.subtitle, fontWeight: '800', marginBottom: spacing.xs },
   emptySubtitle: {

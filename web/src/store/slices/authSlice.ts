@@ -18,7 +18,7 @@ interface AuthState {
 const initialState: AuthState = {
   user: null,
   isAuthenticated: false,
-  isLoading: false,
+  isLoading: true, // true so route guards wait for restoreSession before redirecting
   error: null,
 };
 

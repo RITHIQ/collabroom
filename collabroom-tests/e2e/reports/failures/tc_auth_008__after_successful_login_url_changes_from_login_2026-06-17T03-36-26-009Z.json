@@ -1,0 +1,8 @@
+{
+  "testName": "TC_AUTH_008: After successful login URL changes from login",
+  "url": "http://localhost:3000/#/login",
+  "error": "expected 'http://localhost:3000/#/login' to not include '/#/login'",
+  "stack": "AssertionError: expected 'http://localhost:3000/#/login' to not include '/#/login'\n    at Context.<anonymous> (tests\\auth.test.js:59:31)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "timestamp": "2026-06-17T03-36-26-009Z",
+  "screenshotPath": "C:\\Users\\then9\\Downloads\\PROJECT PDD\\collabroom-tests\\e2e\\screenshots\\tc_auth_008__after_successful_login_url_changes_from_login_2026-06-17T03-36-25-935Z.png"
+}

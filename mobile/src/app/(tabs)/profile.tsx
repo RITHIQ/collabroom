@@ -7,6 +7,7 @@ import {
   ScrollView,
   Alert,
   RefreshControl,
+  Share,
 } from 'react-native';
 import { MotiView } from 'moti';
 import { Screen } from '../../components/ui/Screen';
@@ -93,17 +94,20 @@ function MenuRow({
   onPress,
   accent = false,
   danger = false,
+  testID,
 }: {
   icon: string;
   label: string;
   onPress: () => void;
   accent?: boolean;
   danger?: boolean;
+  testID?: string;
+  accessibilityLabel?: string;
 }) {
   const iconColor = danger ? colors.danger : accent ? colors.accent : colors.textSecondary;
   const textColor = danger ? colors.danger : colors.textPrimary;
   return (
-    <Pressable style={({ pressed }) => [styles.menuRow, pressed && styles.menuRowPressed]} onPress={onPress}>
+    <Pressable testID={testID} accessibilityLabel={accessibilityLabel} style={({ pressed }) => [styles.menuRow, pressed && styles.menuRowPressed]} onPress={onPress}>
       <View style={[styles.menuIconBox, {
         backgroundColor: danger ? '#FFF0F0' : accent ? colors.accentLight : colors.surfaceElevated,
       }]}>
@@ -365,11 +369,18 @@ export default function ProfileScreen() {
 
           {/* CTA Row */}
           <View style={styles.ctaRow}>
-            <Pressable style={styles.editProfileBtn} onPress={() => router.push('/profile-edit' as any)}>
-              <Feather name="edit-2" size={13} color="#ffffff" style={{ marginRight: 5 }} />
+            <Pressable testID="edit-profile-btn" style={styles.editProfileBtn} onPress={() => router.push('/profile-edit' as any)}>
+              <Feather name="edit-2" size={13} color="#0a0a0a" style={{ marginRight: 5 }} />
               <Text style={styles.editProfileText}>Edit Profile</Text>
             </Pressable>
-            <Pressable style={styles.shareBtn}>
+            <Pressable
+              testID="share-btn"
+              style={styles.shareBtn}
+              onPress={() => Share.share({
+                message: `Check out my ColabRoom profile!\n${displayName}${username ? ' (@' + username + ')' : ''}${location ? ' • ' + location : ''}`,
+                title: 'ColabRoom Profile',
+              })}
+            >
               <Feather name="share-2" size={16} color={colors.textPrimary} />
             </Pressable>
           </View>
@@ -437,13 +448,13 @@ export default function ProfileScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Account</Text>
           <View style={styles.menuCard}>
-            <MenuRow icon="edit-2" label="Edit Profile" onPress={() => router.push('/profile-edit' as any)} />
-            <MenuRow icon="file-text" label="Contracts" onPress={() => router.push('/contracts' as any)} />
-            <MenuRow icon="dollar-sign" label="Wallet" onPress={() => router.push('/wallet' as any)} accent />
-            <MenuRow icon="zap" label="AI Brief Generator" onPress={() => router.push('/ai-brief' as any)} accent />
-            <MenuRow icon="bell" label="Notifications" onPress={() => router.push('/notifications' as any)} />
-            <MenuRow icon="bar-chart-2" label="Stats" onPress={() => {}} />
-            <MenuRow icon="settings" label="Settings" onPress={() => {}} />
+            <MenuRow testID="edit-profile-menu" icon="edit-2" label="Edit Profile" onPress={() => router.push('/profile-edit' as any)} />
+            <MenuRow testID="contracts-menu" icon="file-text" label="Contracts" onPress={() => router.push('/contracts' as any)} />
+            <MenuRow testID="wallet-menu" icon="dollar-sign" label="Wallet" onPress={() => router.push('/wallet' as any)} accent />
+            <MenuRow testID="ai-brief-menu" icon="zap" label="AI Brief Generator" onPress={() => router.push('/(tabs)/ai-brief' as any)} accent />
+            <MenuRow testID="notifications-menu" icon="bell" label="Notifications" onPress={() => router.push('/notifications' as any)} accessibilityLabel="notifications" />
+            <MenuRow testID="stats-menu" icon="bar-chart-2" label="Stats" onPress={() => Alert.alert('Stats', 'Detailed analytics coming soon! Track your impressions, engagement rate, and campaign ROI.')} />
+            <MenuRow testID="settings-menu" icon="settings" label="Settings" onPress={() => Alert.alert('Settings', 'App settings (notifications, privacy, account) are coming soon.')} />
           </View>
         </View>
 
@@ -480,7 +491,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.accent, justifyContent: 'center', alignItems: 'center',
     borderWidth: 3, borderColor: colors.background,
   },
-  avatarBigText: { color: '#ffffff', fontSize: 28, fontWeight: '900' },
+  avatarBigText: { color: '#0a0a0a', fontSize: 28, fontWeight: '900' },
   displayName: { color: colors.textPrimary, fontSize: 20, fontWeight: '900', letterSpacing: -0.3, marginBottom: 2 },
   usernameText: { color: colors.textMuted, fontSize: typography.body, fontWeight: '500', marginBottom: spacing.sm },
   metaRow: { flexDirection: 'row', alignItems: 'center', marginBottom: spacing.xs },
@@ -505,7 +516,7 @@ const styles = StyleSheet.create({
     flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
     backgroundColor: colors.textPrimary, borderRadius: radius.pill, paddingVertical: 10,
   },
-  editProfileText: { color: '#ffffff', fontWeight: '700', fontSize: 13 },
+  editProfileText: { color: '#0a0a0a', fontWeight: '700', fontSize: 13 },
   shareBtn: {
     width: 40, height: 40, borderRadius: 20, borderWidth: 1, borderColor: colors.border,
     justifyContent: 'center', alignItems: 'center', backgroundColor: colors.surface,
@@ -532,7 +543,7 @@ const styles = StyleSheet.create({
   progressTrack: { height: 6, backgroundColor: colors.surfaceElevated, borderRadius: 3, marginBottom: spacing.md, overflow: 'hidden' },
   progressFill: { height: '100%', backgroundColor: colors.accent, borderRadius: 3 },
   completeButton: { backgroundColor: colors.accent, borderRadius: radius.pill, paddingVertical: 11, alignItems: 'center' },
-  completeButtonText: { color: '#ffffff', fontWeight: '700', fontSize: 13 },
+  completeButtonText: { color: '#0a0a0a', fontWeight: '700', fontSize: 13 },
 
   // ── Section ──
   section: { marginBottom: spacing.lg },
@@ -563,6 +574,6 @@ const styles = StyleSheet.create({
   menuLabel: { flex: 1, fontSize: 14, fontWeight: '600' },
 
   // ── Skeleton ──
-  skeletonCard: { backgroundColor: '#F0F0F0', borderRadius: radius.md, height: 250, marginBottom: spacing.lg },
-  skeletonLine: { height: 14, backgroundColor: '#E0E0E0', borderRadius: 7 },
+  skeletonCard: { backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: radius.md, height: 250, marginBottom: spacing.lg },
+  skeletonLine: { height: 14, backgroundColor: 'rgba(255,255,255,0.04)', borderRadius: 7 },
 });

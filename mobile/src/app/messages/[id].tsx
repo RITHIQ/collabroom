@@ -35,6 +35,7 @@ export default function ChatRoomScreen() {
   const [sending, setSending] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [userRole, setUserRole] = useState('creator');
+  const [partnerName, setPartnerName] = useState<string>('Chat');
   
   const flatListRef = useRef<FlatList>(null);
 
@@ -45,7 +46,11 @@ export default function ChatRoomScreen() {
         setUserId(user.id);
         const { data: profile } = await supabase.from('profiles').select('role').eq('user_id', user.id).maybeSingle();
         if (profile) setUserRole(profile.role);
-        
+        // Try to get partner name
+        const { data: partnerProfile } = await supabase.from('profiles').select('full_name,first_name,last_name').eq('user_id', activeThread).maybeSingle();
+        if (partnerProfile) {
+          setPartnerName(partnerProfile.full_name || `${partnerProfile.first_name || ''} ${partnerProfile.last_name || ''}`.trim() || 'Chat');
+        }
         loadMessages(user.id);
       } else {
         setUserId('mock_user_id');
@@ -128,10 +133,10 @@ export default function ChatRoomScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       {/* Header */}
       <View style={styles.header}>
-        <Pressable onPress={() => router.back()} style={styles.backBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+        <Pressable accessibilityLabel="back" onPress={() => router.back()} style={styles.backBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
           <Feather name="arrow-left" size={22} color={colors.textPrimary} />
         </Pressable>
-        <Text style={styles.headerTitle} numberOfLines={1}>Chat</Text>
+        <Text style={styles.headerTitle} numberOfLines={1}>{partnerName}</Text>
         <View style={{ width: 36 }} />
       </View>
 
@@ -161,7 +166,7 @@ export default function ChatRoomScreen() {
             multiline
           />
           <Pressable style={styles.sendBtn} onPress={sendMessage} disabled={sending || !newMsg.trim()}>
-            <Feather name="send" size={20} color={!newMsg.trim() ? colors.textMuted : '#ffffff'} />
+            <Feather name="send" size={20} color={!newMsg.trim() ? 'rgba(0,0,0,0.3)' : '#0a0a0a'} />
           </Pressable>
         </View>
       </KeyboardAvoidingView>
@@ -203,7 +208,7 @@ const styles = StyleSheet.create({
     minHeight: 44, maxHeight: 100, color: colors.textPrimary,
   },
   sendBtn: {
-    width: 44, height: 44, borderRadius: 22, backgroundColor: colors.accent,
+    width: 44, height: 44, borderRadius: 22, backgroundColor: '#ffffff',
     justifyContent: 'center', alignItems: 'center', marginLeft: spacing.sm,
   },
 });

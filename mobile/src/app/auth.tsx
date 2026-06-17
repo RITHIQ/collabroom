@@ -95,6 +95,7 @@ function SubmitButton({
   isLoading: boolean;
   disabled: boolean;
   onPress: () => void;
+  testID?: string;
 }) {
   const [pressed, setPressed] = useState(false);
   return (
@@ -104,6 +105,7 @@ function SubmitButton({
       style={{ marginTop: 18 }}
     >
       <Pressable
+        testID={testID}
         style={s.submitBtn}
         onPress={onPress}
         disabled={disabled}
@@ -154,6 +156,7 @@ function InputField({
   onBlur: () => void;
   hasError?: boolean;
   autoFocus?: boolean;
+  testID?: string;
 }) {
   return (
     <View style={s.inputGroup}>
@@ -177,6 +180,7 @@ function InputField({
           style={s.inputIcon}
         />
         <TextInput
+          testID={testID}
           style={s.textInput}
           value={value}
           onChangeText={onChangeText}
@@ -394,6 +398,7 @@ export default function AuthScreen() {
                           style={s.inputIcon}
                         />
                         <TextInput
+                          testID="login-password-input"
                           style={s.textInput}
                           value={password}
                           onChangeText={setPassword}
@@ -420,6 +425,7 @@ export default function AuthScreen() {
                       isLoading={isLoading}
                       disabled={!email.trim() || !password}
                       onPress={signIn}
+                      testID="login-button"
                     />
 
                     <View style={s.switchRow}>
@@ -492,6 +498,7 @@ export default function AuthScreen() {
                           style={s.inputIcon}
                         />
                         <TextInput
+                          testID="auth-password-input"
                           style={s.textInput}
                           value={password}
                           onChangeText={setPassword}
@@ -531,6 +538,7 @@ export default function AuthScreen() {
                       isLoading={isLoading}
                       disabled={!email.trim() || !password || !fullName.trim() || !confirmPassword}
                       onPress={signUp}
+                      testID="auth-login-button"
                     />
 
                     <Text style={s.termsNote}>

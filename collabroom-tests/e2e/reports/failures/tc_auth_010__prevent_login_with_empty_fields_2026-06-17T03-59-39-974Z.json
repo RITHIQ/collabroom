@@ -1,0 +1,9 @@
+{
+  "testName": "TC_AUTH_010: Prevent login with empty fields",
+  "url": "http://localhost:3000/#/login",
+  "error": "authPage.getPasswordInput is not a function",
+  "stack": "TypeError: authPage.getPasswordInput is not a function\n    at Context.<anonymous> (tests\\auth.test.js:86:38)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "consoleLogs": [],
+  "timestamp": "2026-06-17T03-59-39-974Z",
+  "screenshotPath": "C:\\Users\\then9\\Downloads\\PROJECT PDD\\collabroom-tests\\e2e\\reports\\failures\\tc_auth_010__prevent_login_with_empty_fields_2026-06-17T03-59-39-893Z.png"
+}

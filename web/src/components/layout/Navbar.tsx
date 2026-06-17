@@ -294,6 +294,7 @@ export default function Navbar() {
               {/* User Menu */}
               <div className="desktop-only" style={{ position: 'relative' }}>
                 <button
+                  data-testid="avatar"
                   onClick={() => { setDropdownOpen(!dropdownOpen); setNotifOpen(false); }}
                   style={{
                     display: 'flex', alignItems: 'center', gap: 8,

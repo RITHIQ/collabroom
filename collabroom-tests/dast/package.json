@@ -1,0 +1,14 @@
+{
+  "name": "collabroom-dast-tests",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "node automated_test/runner.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "jsonwebtoken": "^9.0.2",
+    "exceljs": "^4.4.0",
+    "chalk": "^4.1.2",
+    "dotenv": "^16.0.0"
+  }
+}

@@ -192,6 +192,7 @@ export default function Campaigns() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
               whileHover={{ y: -3 }}
+              data-testid="campaign-card"
               className="card"
               style={{ padding: 22, display: 'flex', flexDirection: 'column', position: 'relative' }}
             >
@@ -326,7 +327,7 @@ export default function Campaigns() {
               </p>
 
               <div style={{ display: 'flex', gap: 10 }}>
-                <button className="btn btn-primary" style={{ flex: 1, justifyContent: 'center' }} onClick={handleApply} disabled={applying}>
+                <button className="btn btn-primary" data-testid="submit-interest-btn" style={{ flex: 1, justifyContent: 'center' }} onClick={handleApply} disabled={applying}>
                   {applying ? 'Submitting…' : <><ArrowRight size={15} /> Submit Application</>}
                 </button>
                 <button className="btn btn-secondary" onClick={() => setApplyModal(null)}>Cancel</button>

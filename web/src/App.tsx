@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 import { useEffect } from 'react';
@@ -16,6 +16,7 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import Onboarding from './pages/Onboarding';
 import NotFound from './pages/NotFound';
 
@@ -58,10 +59,28 @@ function AppInit({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+/** Shared loading screen while session is being restored */
+function SessionLoader() {
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      height: '100vh', background: 'var(--color-bg-primary)'
+    }}>
+      <div style={{
+        width: 40, height: 40, borderRadius: '50%',
+        border: '3px solid var(--color-border)',
+        borderTopColor: 'var(--color-accent)',
+        animation: 'spin 0.8s linear infinite'
+      }} />
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+    </div>
+  );
+}
+
 /** Guard: must be logged in (any role) */
 function RequireAuth({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAppSelector(s => s.auth);
-  if (isLoading) return null;
+  if (isLoading) return <SessionLoader />;
   if (!isAuthenticated) return <Navigate to="/login" replace />;
   return <>{children}</>;
 }
@@ -69,7 +88,7 @@ function RequireAuth({ children }: { children: React.ReactNode }) {
 /** Guard: admin role only */
 function RequireAdmin({ children }: { children: React.ReactNode }) {
   const { user, isAuthenticated, isLoading } = useAppSelector(s => s.auth);
-  if (isLoading) return null;
+  if (isLoading) return <SessionLoader />;
   if (!isAuthenticated) return <Navigate to="/admin/login" replace />;
   if (user?.role !== 'admin') return <Navigate to="/dashboard" replace />;
   return <>{children}</>;
@@ -78,7 +97,7 @@ function RequireAdmin({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <AppInit>
           <Toaster
             position="top-right"
@@ -99,8 +118,10 @@ export default function App() {
             {/* Public */}
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/auth" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/onboarding" element={<RequireAuth><Onboarding /></RequireAuth>} />
             <Route path="/contracts/sign/:id" element={<ContractSign />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
@@ -117,22 +138,36 @@ export default function App() {
             </Route>
 
             {/* Authenticated user routes */}
-            <Route element={<AppLayout />}>
+            <Route element={<RequireAuth><AppLayout /></RequireAuth>}>
               <Route path="/dashboard" element={<Dashboard />} />
+              {/* Discover routes */}
+              <Route path="/discover" element={<DiscoverCreators />} />
               <Route path="/discover/creators" element={<DiscoverCreators />} />
               <Route path="/discover/brands" element={<DiscoverBrands />} />
+              {/* Campaigns */}
               <Route path="/campaigns" element={<Campaigns />} />
               <Route path="/campaigns/new" element={<CampaignCreate />} />
               <Route path="/campaigns/:id" element={<CampaignRoom />} />
+              {/* Collab Room — maps to same campaign room component */}
+              <Route path="/collab-room/:id" element={<CampaignRoom />} />
+              {/* Contracts */}
               <Route path="/contracts" element={<Contracts />} />
               <Route path="/contracts/:id" element={<ContractDetail />} />
+              {/* Wallet */}
               <Route path="/wallet" element={<WalletPage />} />
               <Route path="/payments" element={<WalletPage />} />
+              {/* AI */}
               <Route path="/ai-brief" element={<AIBrief />} />
+              {/* Inbox / Messages */}
               <Route path="/messages" element={<MessagesPage />} />
+              <Route path="/inbox" element={<MessagesPage />} />
+              {/* Notifications */}
               <Route path="/notifications" element={<NotificationsPage />} />
+              {/* Profile */}
+              <Route path="/profile" element={<ProfileView />} />
               <Route path="/profile/edit" element={<ProfileEdit />} />
               <Route path="/profile/:username" element={<ProfileView />} />
+              {/* Settings */}
               <Route path="/settings" element={<SettingsPage />} />
             </Route>
 
@@ -142,7 +177,7 @@ export default function App() {
           </Routes>
           <SupportAssistant />
         </AppInit>
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   );
 }

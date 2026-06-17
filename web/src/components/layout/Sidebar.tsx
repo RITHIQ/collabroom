@@ -57,7 +57,7 @@ export default function Sidebar() {
   const emailDisplay = user?.email ?? '';
 
   return (
-    <aside className="sidebar desktop-only" style={{ width: 'var(--sidebar-width)' }}>
+    <aside data-testid="sidebar" className="sidebar desktop-only" style={{ width: 'var(--sidebar-width)' }}>
       <div style={{ padding: '20px 14px', display: 'flex', flexDirection: 'column', height: '100%' }}>
 
         {/* ── Logo ── */}

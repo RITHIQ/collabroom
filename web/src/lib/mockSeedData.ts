@@ -209,7 +209,7 @@ export const MOCK_CREATORS: CreatorRow[] = [
     avgResponseTime: '< 5h',
     socialLinks: social([
       { platform: 'youtube', handle: 'Vikram Gaming', followers: 385000, engagementRate: 4.3 },
-      { platform: 'twitch', handle: '@vikramgaming', followers: 127000, engagementRate: 3.8 },
+      { platform: 'tiktok', handle: '@vikramgaming', followers: 127000, engagementRate: 3.8 },
       { platform: 'instagram', handle: '@vikram.gaming', followers: 145000, engagementRate: 4.0 },
     ]),
   }),
@@ -267,6 +267,35 @@ const iso = (d: string) => new Date(d).toISOString();
 
 /** Sample campaigns for Discover Brands, Campaigns list, and Dashboard. */
 export const MOCK_CAMPAIGNS: Campaign[] = [
+  {
+    id: 'room-001',
+    brandId: 'brand_mock_glowco',
+    brandName: 'GlowCo India',
+    title: 'Monsoon Glow',
+    description:
+      'GlowCo India\'s flagship monsoon campaign. We\'re seeking beauty and skincare creators to showcase our new hydration line for the monsoon season. Authentic content, real results.',
+    type: 'sponsored_post',
+    platforms: ['instagram', 'youtube'],
+    contentFormats: ['reel', 'story', 'photo'],
+    startDate: iso('2026-05-01'),
+    endDate: iso('2026-07-15'),
+    budget: 350000,
+    currency: 'INR',
+    slotsTotal: 5,
+    slotsFilled: 1,
+    status: 'active',
+    visibility: 'public',
+    deliverables: ['2 Instagram Reels', '3 Stories', '1 YouTube Short'],
+    niche: 'Beauty/Skincare',
+    applicationsCount: 12,
+    createdAt: iso('2026-04-20'),
+    brief: {
+      toneOfVoice: 'Fresh, glowing, authentic',
+      dos: ['Show before/after skincare routine', 'Feature GlowCo serum prominently'],
+      donts: ['No competitor brand mentions', 'Avoid heavy filters'],
+      mandatoryHashtags: ['#MonsoonGlow', '#GlowCoIndia'],
+    },
+  },
   {
     id: 'camp_mock_boat_audio',
     brandId: 'brand_mock_boat',
@@ -580,7 +609,29 @@ export const MOCK_CONTRACTS: Contract[] = [
     signedByBrandAt: iso('2026-05-13'),
     signedByCreatorAt: iso('2026-05-14'),
   },
+  {
+    id: 'contract_monsoon_glow',
+    campaignId: 'room-001',
+    brandId: 'brand_mock_glowco',
+    creatorId: 'cr_mock_priya_sharma',
+    brandName: 'GlowCo India',
+    creatorName: 'Priya Sharma',
+    content: {
+      parties: 'GlowCo India Pvt. Ltd. (Client) and Priya Sharma (Creator)',
+      compensation: '₹1,85,000 held in ColabRoom Escrow. Released in two tranches: 40% on draft approval, 60% on final published content.',
+      scope: 'Two (2) Instagram Reels showcasing GlowCo Hydration Serum, three (3) Instagram Stories with swipe-up links, and one (1) YouTube Short. Content must include #MonsoonGlow and #GlowCoIndia hashtags. DELIVERABLES: 2 Reels, 3 Stories, 1 YouTube Short.',
+      liability: 'Creator agrees to ASCI guidelines and must disclose paid partnership. GlowCo retains 3-month amplification rights.',
+      kill_fee: '25% kill fee applies if brand cancels after content brief is shared.',
+    },
+    status: 'signed',
+    totalAmount: 185000,
+    currency: 'INR',
+    createdAt: iso('2026-05-05'),
+    signedByBrandAt: iso('2026-05-06'),
+    signedByCreatorAt: iso('2026-05-07'),
+  },
 ];
+
 
 export function findMockCampaign(id: string): Campaign | undefined {
   return MOCK_CAMPAIGNS.find((c) => c.id === id);
@@ -764,6 +815,25 @@ export const MOCK_BRANDS: BrandRow[] = [
     campaignsCompleted: 145,
     onTimePaymentRate: 95,
     completionPercentage: 93,
+  },
+  {
+    id: 'brand_mock_glowco',
+    userId: 'brand_mock_glowco',
+    companyName: 'GlowCo India',
+    handle: 'glowco-india',
+    industry: 'Beauty & Skincare',
+    companySize: '51–200',
+    website: 'https://glowco.in',
+    description: 'India\'s rising D2C skincare brand focused on clean, effective formulations for every skin type.',
+    values: 'Clean beauty · Efficacy · Transparency',
+    preferredNiches: ['Beauty/Skincare', 'Lifestyle', 'Fashion'],
+    preferredPlatforms: ['instagram', 'youtube'],
+    brandScore: 84,
+    brandTier: 'trusted',
+    avgPaymentTime: 2.1,
+    campaignsCompleted: 18,
+    onTimePaymentRate: 96,
+    completionPercentage: 91,
   },
 ];
 

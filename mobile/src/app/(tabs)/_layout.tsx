@@ -56,6 +56,8 @@ export default function TabsLayout() {
         name="home"
         options={{
           title: 'Home',
+          tabBarButtonTestID: 'home-tab',
+          tabBarAccessibilityLabel: 'Home',
           tabBarIcon: ({ color }: { color: string }) => (
             <Feather name="home" size={22} color={color} />
           ),
@@ -65,6 +67,7 @@ export default function TabsLayout() {
         name="discover"
         options={{
           title: 'Search',
+          tabBarButtonTestID: 'discover-tab',
           tabBarIcon: ({ color }: { color: string }) => (
             <Feather name="search" size={22} color={color} />
           ),
@@ -74,6 +77,8 @@ export default function TabsLayout() {
         name="campaigns"
         options={{
           title: 'Campaigns',
+          tabBarButtonTestID: 'campaign-tab',
+          tabBarAccessibilityLabel: 'Campaigns',
           tabBarIcon: ({ color, focused }: { color: string; focused: boolean }) => (
             <View style={{ position: 'relative' }}>
               <Feather name="briefcase" size={22} color={color} />
@@ -86,6 +91,8 @@ export default function TabsLayout() {
         name="messages"
         options={{
           title: 'Inbox',
+          tabBarButtonTestID: 'messages-tab',
+          tabBarAccessibilityLabel: 'View Inbox',
           tabBarIcon: ({ color }: { color: string }) => (
             <Feather name="message-circle" size={22} color={color} />
           ),
@@ -95,6 +102,7 @@ export default function TabsLayout() {
         name="ai-brief"
         options={{
           title: 'AI Brief',
+          tabBarButtonTestID: 'ai-brief-tab',
           tabBarIcon: ({ color }: { color: string }) => (
             <Feather name="zap" size={22} color={color} />
           ),
@@ -104,6 +112,8 @@ export default function TabsLayout() {
         name="profile"
         options={{
           title: 'Profile',
+          tabBarButtonTestID: 'profile-tab',
+          tabBarAccessibilityLabel: 'Profile',
           tabBarIcon: ({ color }: { color: string }) => (
             <Feather name="user" size={22} color={color} />
           ),

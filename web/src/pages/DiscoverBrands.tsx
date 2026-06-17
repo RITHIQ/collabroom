@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { campaignsAPI } from '../services/api';
 import type { Campaign } from '../types';
-import { Search, Bookmark, ArrowRight, Calendar, DollarSign, Users, X, Info, Target, LayoutGrid } from 'lucide-react';
+import { Search, Bookmark, ArrowRight, Calendar, DollarSign, Users, X, Target, LayoutGrid } from 'lucide-react';
 import { MOCK_CAMPAIGNS } from '../lib/mockSeedData';
 import toast from 'react-hot-toast';
 

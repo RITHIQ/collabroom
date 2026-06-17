@@ -34,7 +34,11 @@
     },
     "extra": {
       "supabaseUrl": "https://xcorhotvnayrboihsdvm.supabase.co",
-      "supabaseAnonKey": "sb_publishable_umiqwHBQxpE2ATCtfYiEMQ_NAl2nNRi"
+      "supabaseAnonKey": "sb_publishable_umiqwHBQxpE2ATCtfYiEMQ_NAl2nNRi",
+      "router": {},
+      "eas": {
+        "projectId": "bff6b0ff-76d1-4d78-9406-53b1160483ef"
+      }
     },
     "plugins": [
       "expo-router"

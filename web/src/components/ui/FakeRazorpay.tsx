@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, X, CreditCard, Smartphone, CheckCircle, Loader } from 'lucide-react';
 
@@ -13,16 +13,7 @@ export default function FakeRazorpay({ amount, onSuccess, onClose }: FakeRazorpa
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handlePay = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
-      setTimeout(() => {
-        onSuccess(`pay_mock_${Date.now()}`);
-      }, 1500);
-    }, 2000);
-  };
+
 
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(3px)' }}>

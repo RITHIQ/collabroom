@@ -1,0 +1,8 @@
+{
+  "testName": "TC_AUTH_005: Unauthenticated access to /#/dashboard redirects to /#/login",
+  "url": "http://localhost:3000/#/dashboard",
+  "error": "unknown error: net::ERR_CONNECTION_REFUSED\n  (Session info: chrome=149.0.7827.103)",
+  "stack": "WebDriverError: unknown error: net::ERR_CONNECTION_REFUSED\n  (Session info: chrome=149.0.7827.103)\n    at Object.throwDecodedError (node_modules\\selenium-webdriver\\lib\\error.js:523:15)\n    at parseHttpResponse (node_modules\\selenium-webdriver\\lib\\http.js:527:13)\n    at Executor.execute (node_modules\\selenium-webdriver\\lib\\http.js:459:28)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async Driver.execute (node_modules\\selenium-webdriver\\lib\\webdriver.js:745:17)\n    at async AuthPage.navigate (pages\\BasePage.js:10:5)\n    at async Context.<anonymous> (tests\\auth.test.js:47:5)",
+  "timestamp": "2026-06-17T03-31-38-058Z",
+  "screenshotPath": "C:\\Users\\then9\\Downloads\\PROJECT PDD\\collabroom-tests\\e2e\\screenshots\\tc_auth_005__unauthenticated_access_to____dashboard_redirects_to____login_2026-06-17T03-31-37-999Z.png"
+}

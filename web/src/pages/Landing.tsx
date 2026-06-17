@@ -228,7 +228,7 @@ export default function Landing() {
       }}>
         <div className="container-wide" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 72 }}>
           {/* Logo */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div data-testid="logo" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <div style={{
               width: 28, height: 28, borderRadius: 7,
               background: 'rgba(255,255,255,0.10)',

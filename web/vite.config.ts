@@ -22,6 +22,9 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react(), tailwindcss()],
+    // base: set to your GitHub repo name for Pages deployment
+    // e.g. VITE_BASE_URL=/collabroom/ npm run build
+    base: env.VITE_BASE_URL || '/',
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),

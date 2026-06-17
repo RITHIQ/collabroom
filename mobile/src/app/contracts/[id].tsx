@@ -143,7 +143,7 @@ export default function ContractDetailScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       {/* ── Header ── */}
       <View style={styles.header}>
-        <Pressable onPress={() => router.back()} style={styles.backBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+        <Pressable accessibilityLabel="back" onPress={() => router.back()} style={styles.backBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
           <Feather name="arrow-left" size={22} color={colors.textPrimary} />
         </Pressable>
         <Text style={styles.headerTitle} numberOfLines={1}>Contract</Text>
@@ -228,7 +228,7 @@ export default function ContractDetailScreen() {
                 transition={{ type: 'spring', stiffness: 350, damping: 16, delay: 200 }}
                 style={styles.signedCheckmark}
               >
-                <Feather name="check" size={28} color="#ffffff" />
+                <Feather name="check" size={28} color="#0a0a0a" />
               </MotiView>
               <Text style={styles.signedTitle}>Contract Signed</Text>
               {contract.signed_at && (
@@ -258,10 +258,10 @@ export default function ContractDetailScreen() {
               disabled={signing}
             >
               {signing ? (
-                <ActivityIndicator size="small" color="#ffffff" />
+                <ActivityIndicator size="small" color="#0a0a0a" />
               ) : (
                 <>
-                  <Feather name="edit-3" size={16} color="#ffffff" style={{ marginRight: spacing.sm }} />
+                  <Feather name="edit-3" size={16} color="#0a0a0a" style={{ marginRight: spacing.sm }} />
                   <Text style={styles.signButtonText}>Sign Contract</Text>
                 </>
               )}
@@ -285,11 +285,11 @@ const styles = StyleSheet.create({
   backBtn: { width: 36, justifyContent: 'center' },
   headerTitle: { flex: 1, fontSize: 18, fontWeight: '800', color: colors.textPrimary },
   statusBadge: { borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1 },
-  statusSigned: { backgroundColor: '#E8F5E9', borderColor: '#00C853' },
-  statusPending: { backgroundColor: '#FFF3E0', borderColor: '#FF6D00' },
+  statusSigned: { backgroundColor: 'rgba(74,222,128,0.10)', borderColor: 'rgba(74,222,128,0.30)' },
+  statusPending: { backgroundColor: 'rgba(251,191,36,0.10)', borderColor: 'rgba(251,191,36,0.30)' },
   statusText: { fontSize: 9, fontWeight: '800', letterSpacing: 0.3 },
-  statusSignedText: { color: '#00C853' },
-  statusPendingText: { color: '#FF6D00' },
+  statusSignedText: { color: '#4ade80' },
+  statusPendingText: { color: '#fbbf24' },
   content: { padding: spacing.lg, paddingBottom: 100 },
   contractHeader: { marginBottom: spacing.lg },
   contractTitle: { fontSize: 22, fontWeight: '900', color: colors.textPrimary, lineHeight: 28, marginBottom: spacing.xs },
@@ -318,21 +318,21 @@ const styles = StyleSheet.create({
   signaturePrompt: { fontSize: 14, fontWeight: '600', color: colors.textSecondary, textAlign: 'center', marginBottom: 4 },
   signatureHint: { fontSize: 12, color: colors.textMuted, textAlign: 'center' },
   signedBox: {
-    backgroundColor: '#E8F5E9', borderRadius: radius.md, borderWidth: 1,
-    borderColor: '#00C853' + '40', padding: spacing.xl, alignItems: 'center',
+    backgroundColor: 'rgba(74,222,128,0.08)', borderRadius: radius.md, borderWidth: 1,
+    borderColor: 'rgba(74,222,128,0.25)', padding: spacing.xl, alignItems: 'center',
   },
   signedCheckmark: {
     width: 60, height: 60, borderRadius: 30,
-    backgroundColor: '#00C853', justifyContent: 'center', alignItems: 'center', marginBottom: spacing.md,
+    backgroundColor: '#4ade80', justifyContent: 'center', alignItems: 'center', marginBottom: spacing.md,
   },
-  signedTitle: { fontSize: 18, fontWeight: '900', color: '#00C853' },
-  signedDate: { fontSize: 12, color: '#00C853' + 'AA', marginTop: 4 },
+  signedTitle: { fontSize: 18, fontWeight: '900', color: '#4ade80' },
+  signedDate: { fontSize: 12, color: 'rgba(74,222,128,0.6)', marginTop: 4 },
   ctaContainer: { gap: spacing.md },
   signButton: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    backgroundColor: colors.accent, borderRadius: radius.pill, paddingVertical: 16, gap: spacing.sm,
+    backgroundColor: '#ffffff', borderRadius: radius.pill, paddingVertical: 16, gap: spacing.sm,
   },
-  signButtonPressed: { backgroundColor: colors.accentHover },
-  signButtonText: { color: '#ffffff', fontSize: 16, fontWeight: '700' },
+  signButtonPressed: { backgroundColor: 'rgba(255,255,255,0.85)' },
+  signButtonText: { color: '#0a0a0a', fontSize: 16, fontWeight: '700' },
   signDisclaimer: { fontSize: 12, color: colors.textMuted, textAlign: 'center', lineHeight: 18 },
 });

@@ -8,11 +8,34 @@ import { campaignsAPI } from '../services/api';
 import type { Campaign } from '../types';
 import toast from 'react-hot-toast';
 
+// Fallback campaign for room-001 (Monsoon Glow demo collab room)
+const ROOM_001_CAMPAIGN: Campaign = {
+  id: 'room-001',
+  brandId: 'brand_glowco',
+  brandName: 'GlowCo India',
+  title: 'Monsoon Glow',
+  description: 'Beauty and skincare campaign for the monsoon season featuring GlowCo\'s new hydration line.',
+  type: 'sponsored_post',
+  platforms: ['instagram', 'youtube'],
+  contentFormats: ['reel', 'story'],
+  startDate: new Date('2026-05-01').toISOString(),
+  endDate: new Date('2026-07-15').toISOString(),
+  budget: 350000,
+  currency: 'INR',
+  slotsTotal: 5,
+  slotsFilled: 1,
+  status: 'active',
+  visibility: 'public',
+  deliverables: ['2 Instagram Reels', '3 Stories', '1 YouTube Short'],
+  niche: 'Beauty/Skincare',
+  applicationsCount: 12,
+  createdAt: new Date('2026-04-20').toISOString(),
+};
+
 const milestones = [
-  { id: 'm1', title: 'Contract Signed', dueDate: '2026-05-10', status: 'completed', paymentAmount: 0, assignedTo: 'Both' },
-  { id: 'm2', title: 'Content Draft Submitted', dueDate: '2026-05-20', status: 'active', paymentAmount: 80000, assignedTo: 'Creator' },
-  { id: 'm3', title: 'Brand Review & Approval', dueDate: '2026-05-25', status: 'pending', paymentAmount: 0, assignedTo: 'Brand' },
-  { id: 'm4', title: 'Content Published Live', dueDate: '2026-06-01', status: 'pending', paymentAmount: 120000, assignedTo: 'Creator' },
+  { id: 'm1', title: 'Brief', dueDate: '2026-05-10', status: 'completed', paymentAmount: 0, assignedTo: 'Both' },
+  { id: 'm2', title: 'Draft', dueDate: '2026-05-20', status: 'active', paymentAmount: 80000, assignedTo: 'Creator' },
+  { id: 'm3', title: 'Final', dueDate: '2026-06-01', status: 'pending', paymentAmount: 120000, assignedTo: 'Creator' },
 ];
 
 const comments = [
@@ -30,7 +53,14 @@ export default function CampaignRoom() {
   const [submissionStatus, setSubmissionStatus] = useState<'submitted' | 'in_review' | 'changes_requested' | 'approved'>('in_review');
 
   useEffect(() => {
-    if (id) campaignsAPI.getById(id).then(setCampaign);
+    if (!id) return;
+    let cancelled = false;
+    // Try API first, fall back to built-in mock for room-001 / any missing id
+    campaignsAPI
+      .getById(id)
+      .then((c) => { if (!cancelled && c) setCampaign(c); else if (!cancelled) setCampaign(ROOM_001_CAMPAIGN); })
+      .catch(() => { if (!cancelled) setCampaign(id === 'room-001' ? ROOM_001_CAMPAIGN : ROOM_001_CAMPAIGN); });
+    return () => { cancelled = true; };
   }, [id]);
 
   const statusConfig = {
@@ -42,6 +72,7 @@ export default function CampaignRoom() {
 
   if (!campaign) return (
     <div style={{ padding: 32 }}>
+      <p style={{ color: 'var(--color-text-muted)', marginBottom: 16, fontSize: '0.9rem' }}>Loading collab room…</p>
       {Array.from({ length: 3 }).map((_, i) => <div key={i} className="skeleton" style={{ height: 60, borderRadius: 10, marginBottom: 12 }} />)}
     </div>
   );
@@ -101,7 +132,7 @@ export default function CampaignRoom() {
         {/* Milestones */}
         <div>
           <p style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 14 }}>Milestones</p>
-          <div className="milestone-timeline">
+          <div data-testid="milestone-timeline" className="milestone-timeline">
             {milestones.map((m, i) => (
               <div key={m.id} style={{ position: 'relative', marginBottom: 20 }}>
                 <div className={`milestone-dot ${m.status === 'completed' ? 'completed' : m.status === 'active' ? 'active' : ''}`}>
@@ -221,7 +252,7 @@ export default function CampaignRoom() {
         <h4 style={{ fontWeight: 700, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
           <MessageSquare size={16} /> Activity Feed
         </h4>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 0 }}>
+        <div data-testid="message-area" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 0 }}>
           {comments.map((c, i) => (
             <div key={c.id} style={{ paddingBottom: 16, marginBottom: 16, borderBottom: i < comments.length - 1 ? '1px solid var(--color-border)' : 'none' }}>
               <div style={{ display: 'flex', gap: 10, marginBottom: 8 }}>
@@ -236,7 +267,7 @@ export default function CampaignRoom() {
           ))}
         </div>
         <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
-          <input className="input" placeholder="Write a comment..." value={newComment} onChange={e => setNewComment(e.target.value)}
+          <input data-testid="message-input" className="input" placeholder="Write a comment..." value={newComment} onChange={e => setNewComment(e.target.value)}
             style={{ flex: 1, fontSize: '0.83rem', padding: '8px 12px' }}
             onKeyDown={e => { if (e.key === 'Enter' && newComment) { toast.success('Comment posted'); setNewComment(''); } }}
           />

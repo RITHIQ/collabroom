@@ -7,8 +7,7 @@ import { motion } from 'framer-motion';
 import { MessageSquare, Search, Send } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
 import { useAppSelector } from '../store';
-import toast from 'react-hot-toast';
-import { shouldUseMockCatalog } from '../lib/mockAuth';
+
 
 interface Message {
   id: string;

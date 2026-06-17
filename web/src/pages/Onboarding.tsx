@@ -117,7 +117,7 @@ export default function Onboarding() {
             <span style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', fontWeight: 500 }}>Step {step + 1} of {allSteps.length}</span>
             <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-primary)' }}>{Math.round(progress)}% complete</span>
           </div>
-          <div className="progress-bar">
+          <div className="progress-bar" data-testid="completeness-bar">
             <motion.div className="progress-bar-fill" animate={{ width: `${progress}%` }} transition={{ duration: 0.4 }} />
           </div>
           <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>

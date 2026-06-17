@@ -9,6 +9,7 @@ import {
   Animated,
   Easing,
   ScrollView,
+  Alert,
 } from 'react-native';
 import { MotiView } from 'moti';
 import { useRouter } from 'expo-router';
@@ -179,7 +180,7 @@ export default function WalletScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       {/* ── Header ── */}
       <View style={styles.header}>
-        <Pressable onPress={() => router.back()} style={styles.backBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+        <Pressable accessibilityLabel="back" onPress={() => router.back()} style={styles.backBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
           <Feather name="arrow-left" size={22} color={colors.textPrimary} />
         </Pressable>
         <Text style={styles.headerTitle}>Wallet</Text>
@@ -215,8 +216,24 @@ export default function WalletScreen() {
               >
                 <Text style={styles.balanceLabel}>Available Balance</Text>
                 <AnimatedBalance value={balance} />
-                <Pressable style={styles.withdrawButton}>
-                  <Feather name="arrow-up" size={15} color="#ffffff" style={{ marginRight: 6 }} />
+                <Pressable
+                  style={styles.withdrawButton}
+                  onPress={() => {
+                    if (balance <= 0) {
+                      Alert.alert('No Balance', 'You have no available balance to withdraw.');
+                      return;
+                    }
+                    Alert.alert(
+                      'Withdraw Funds',
+                      `Your available balance is ₹${balance.toLocaleString('en-IN')}. Withdrawals are processed within 2–3 business days to your registered bank account.`,
+                      [
+                        { text: 'Cancel', style: 'cancel' },
+                        { text: 'Confirm Withdrawal', style: 'default', onPress: () => Alert.alert('✅ Requested', 'Withdrawal request submitted. You will receive the amount within 2–3 business days.') },
+                      ]
+                    );
+                  }}
+                >
+                  <Feather name="arrow-up" size={15} color="#0a0a0a" style={{ marginRight: 6 }} />
                   <Text style={styles.withdrawButtonText}>Withdraw Funds</Text>
                 </Pressable>
               </MotiView>
@@ -316,8 +333,8 @@ const styles = StyleSheet.create({
   txnAmount: { fontSize: 15, fontWeight: '900' },
 
   // ── Skeleton ──
-  skeletonBalance: { backgroundColor: '#F0F0F0', borderRadius: radius.lg, height: 180, marginBottom: spacing.lg },
-  skeletonTxn: { backgroundColor: '#F0F0F0', borderRadius: radius.md, height: 60, marginBottom: spacing.md },
+  skeletonBalance: { backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: radius.lg, height: 180, marginBottom: spacing.lg },
+  skeletonTxn: { backgroundColor: 'rgba(255,255,255,0.04)', borderRadius: radius.md, height: 60, marginBottom: spacing.md },
 
   // ── Empty ──
   emptyContainer: { alignItems: 'center', paddingVertical: 60 },

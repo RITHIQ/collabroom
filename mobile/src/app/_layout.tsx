@@ -65,10 +65,11 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ gestureEnabled: false }} />
         <Stack.Screen name="notifications" />
         <Stack.Screen name="wallet" />
-        <Stack.Screen name="ai-brief" />
         <Stack.Screen name="profile-edit" />
         <Stack.Screen name="contracts/index" />
         <Stack.Screen name="contracts/[id]" />
+        <Stack.Screen name="campaigns/[id]" />
+        <Stack.Screen name="messages/[id]" />
       </Stack>
     </>
   );

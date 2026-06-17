@@ -74,7 +74,8 @@ export default function WalletPage() {
         amount,
         status: 'completed',
         createdAt: new Date().toISOString(),
-        reference: paymentId,
+        reference: `UPI-MOCK-${Date.now()}`,
+        currency: 'INR',
         campaignId: undefined,
         campaignName: 'Added Funds via Razorpay'
       }, ...(prev.transactions || [])]
@@ -105,7 +106,7 @@ export default function WalletPage() {
   }
 
   return (
-    <div style={{ padding: 32, maxWidth: 900, margin: '0 auto' }}>
+    <div data-testid="wallet-page" style={{ padding: 32, maxWidth: 900, margin: '0 auto' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 28, gap: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <button
@@ -150,7 +151,7 @@ export default function WalletPage() {
         <div style={{ position: 'absolute', bottom: -40, right: 60, width: 120, height: 120, borderRadius: '50%', background: 'rgba(255,255,255,0.06)' }} />
         <div style={{ position: 'relative' }}>
           <div style={{ opacity: 0.8, fontSize: '0.85rem', marginBottom: 8, fontWeight: 500 }}>Available Balance</div>
-          <div style={{ fontFamily: 'Sora', fontSize: '3rem', fontWeight: 800, lineHeight: 1, marginBottom: 24 }}>{f(wallet!.availableBalance)}</div>
+          <div data-testid="available-balance" style={{ fontFamily: 'Sora', fontSize: '3rem', fontWeight: 800, lineHeight: 1, marginBottom: 24 }}>{f(wallet!.availableBalance)}</div>
           <div style={{ display: 'flex', gap: 20, marginBottom: 28 }}>
             {[
               { label: 'Pending', value: f(wallet!.pendingBalance), icon: '⏳' },
@@ -236,7 +237,7 @@ export default function WalletPage() {
         </div>
         { (wallet!.transactions || []).map((txn: Transaction, i: number) => (
           <motion.div key={txn.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }}
-            style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 24px', borderBottom: i < (wallet!.transactions || []).length - 1 ? '1px solid var(--color-border)' : 'none' }}>
+            data-testid="transaction-item" style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 24px', borderBottom: i < (wallet!.transactions || []).length - 1 ? '1px solid var(--color-border)' : 'none' }}>
             <div style={{ width: 40, height: 40, borderRadius: 12, background: 'var(--color-bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>
               {typeIcons[txn.type] || '💳'}
             </div>

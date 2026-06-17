@@ -1,0 +1,8 @@
+{
+  "testName": "TC_NAV_004: Browser forward button works after back",
+  "url": "http://localhost:3000/#/dashboard",
+  "error": "expected 'http://localhost:3000/#/dashboard' to include '/#/wallet'",
+  "stack": "AssertionError: expected 'http://localhost:3000/#/dashboard' to include '/#/wallet'\n    at Context.<anonymous> (tests\\navigation.test.js:77:20)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "timestamp": "2026-06-17T03-37-55-958Z",
+  "screenshotPath": "C:\\Users\\then9\\Downloads\\PROJECT PDD\\collabroom-tests\\e2e\\screenshots\\tc_nav_004__browser_forward_button_works_after_back_2026-06-17T03-37-55-871Z.png"
+}

@@ -15,13 +15,13 @@ import { supabase } from '../../lib/supabase';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const STATUS_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  draft: { bg: '#F5F5F5', text: '#999999', border: '#DDDDDD' },
-  pending: { bg: '#FFF3E0', text: '#FF6D00', border: '#FF6D00' },
-  sent: { bg: '#FFF3E0', text: '#FF6D00', border: '#FF6D00' },
-  signed: { bg: '#E8F5E9', text: '#00C853', border: '#00C853' },
-  active: { bg: '#E8F5E9', text: '#00C853', border: '#00C853' },
-  completed: { bg: '#E8F5E9', text: '#00C853', border: '#00C853' },
-  disputed: { bg: '#FFEBEE', text: '#FF1744', border: '#FF1744' },
+  draft:     { bg: 'rgba(255,255,255,0.05)',   text: 'rgba(255,255,255,0.40)', border: 'rgba(255,255,255,0.12)' },
+  pending:   { bg: 'rgba(251,191,36,0.10)',    text: '#fbbf24', border: 'rgba(251,191,36,0.30)' },
+  sent:      { bg: 'rgba(96,165,250,0.10)',    text: '#60a5fa', border: 'rgba(96,165,250,0.25)' },
+  signed:    { bg: 'rgba(74,222,128,0.10)',    text: '#4ade80', border: 'rgba(74,222,128,0.25)' },
+  active:    { bg: 'rgba(74,222,128,0.10)',    text: '#4ade80', border: 'rgba(74,222,128,0.25)' },
+  completed: { bg: 'rgba(74,222,128,0.10)',    text: '#4ade80', border: 'rgba(74,222,128,0.25)' },
+  disputed:  { bg: 'rgba(248,113,113,0.10)',   text: '#f87171', border: 'rgba(248,113,113,0.25)' },
 };
 
 function formatDate(dateStr: string): string {
@@ -158,7 +158,7 @@ export default function ContractsScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       {/* ── Header ── */}
       <View style={styles.header}>
-        <Pressable onPress={() => router.back()} style={styles.backBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+        <Pressable accessibilityLabel="back" onPress={() => router.back()} style={styles.backBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
           <Feather name="arrow-left" size={22} color={colors.textPrimary} />
         </Pressable>
         <Text style={styles.headerTitle}>Contracts</Text>
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
   },
   actionHintText: { color: colors.accent, fontSize: 12, fontWeight: '600' },
   skeletonCard: {
-    backgroundColor: '#F0F0F0', borderRadius: radius.md,
+    backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: radius.md,
     height: 80, marginBottom: spacing.md,
   },
   emptyContainer: { alignItems: 'center', paddingVertical: 80 },

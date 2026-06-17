@@ -142,7 +142,7 @@ function CampaignCard({ item, index, router }: { item: any; index: number; route
       )}
       {statusKey === 'active' && (
         <Pressable style={styles.actionButton} onPress={() => router.push(`/campaigns/${item.id}` as any)}>
-          <Feather name="message-circle" size={14} color="#ffffff" style={{ marginRight: 6 }} />
+          <Feather name="message-circle" size={14} color="#0a0a0a" style={{ marginRight: 6 }} />
           <Text style={styles.actionButtonText}>Open Collab Room</Text>
         </Pressable>
       )}

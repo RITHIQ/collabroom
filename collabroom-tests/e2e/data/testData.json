@@ -1,0 +1,33 @@
+{
+  "users": {
+    "creator": {
+      "email": "collabroomoperations+creator@gmail.com",
+      "password": "Project2027#"
+    },
+    "brand": {
+      "email": "collabroomoperations+brand@gmail.com",
+      "password": "Project2027#"
+    },
+    "admin": {
+      "email": "collabroomoperations+admin@gmail.com",
+      "password": "Project2027#"
+    },
+    "invalid": {
+      "email": "invalid@test.com",
+      "password": "WrongPassword123!"
+    }
+  },
+  "routes": [
+    "/",
+    "/#/login",
+    "/#/register",
+    "/#/dashboard",
+    "/#/discover",
+    "/#/campaigns",
+    "/#/contracts",
+    "/#/wallet",
+    "/#/profile",
+    "/#/notifications",
+    "/#/settings"
+  ]
+}

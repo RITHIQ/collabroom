@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="47" failures="0" errors="0" time="200.495">
+  <testsuite name="Profile Tests" errors="0" failures="0" skipped="0" timestamp="2026-06-13T17:35:12" time="37.372" tests="6">
+    <testcase classname="Profile Tests TC_PROF_001: /profile body visible" name="Profile Tests TC_PROF_001: /profile body visible" time="2.025">
+    </testcase>
+    <testcase classname="Profile Tests TC_PROF_002: [data-testid=&quot;avatar&quot;] visible" name="Profile Tests TC_PROF_002: [data-testid=&quot;avatar&quot;] visible" time="2.03">
+    </testcase>
+    <testcase classname="Profile Tests TC_PROF_003: profile name or &quot;@&quot; handle visible" name="Profile Tests TC_PROF_003: profile name or &quot;@&quot; handle visible" time="2.014">
+    </testcase>
+    <testcase classname="Profile Tests TC_PROF_004: text &quot;Edit&quot; visible" name="Profile Tests TC_PROF_004: text &quot;Edit&quot; visible" time="2.012">
+    </testcase>
+    <testcase classname="Profile Tests TC_PROF_005: text &quot;Instagram&quot; or &quot;YouTube&quot; or &quot;Social&quot; visible" name="Profile Tests TC_PROF_005: text &quot;Instagram&quot; or &quot;YouTube&quot; or &quot;Social&quot; visible" time="22.098">
+    </testcase>
+    <testcase classname="Profile Tests TC_PROF_006: [data-testid=&quot;completeness-bar&quot;] visible" name="Profile Tests TC_PROF_006: [data-testid=&quot;completeness-bar&quot;] visible" time="2.023">
+    </testcase>
+  </testsuite>
+  <testsuite name="Inbox Tests" errors="0" failures="0" skipped="0" timestamp="2026-06-13T17:35:50" time="37.52" tests="3">
+    <testcase classname="Inbox Tests TC_INBX_001: /inbox body visible" name="Inbox Tests TC_INBX_001: /inbox body visible" time="0.026">
+    </testcase>
+    <testcase classname="Inbox Tests TC_INBX_002: conversation list items visible (count &gt; 0)" name="Inbox Tests TC_INBX_002: conversation list items visible (count &gt; 0)" time="11.082">
+    </testcase>
+    <testcase classname="Inbox Tests TC_INBX_003: clicking first conversation → message input/textarea appears" name="Inbox Tests TC_INBX_003: clicking first conversation → message input/textarea appears" time="21.111">
+    </testcase>
+  </testsuite>
+  <testsuite name="Campaigns Tests" errors="0" failures="0" skipped="0" timestamp="2026-06-13T17:36:27" time="30.98" tests="6">
+    <testcase classname="Campaigns Tests TC_CAMP_001: /campaigns body visible" name="Campaigns Tests TC_CAMP_001: /campaigns body visible" time="2.03">
+    </testcase>
+    <testcase classname="Campaigns Tests TC_CAMP_002: [data-testid=&quot;campaign-card&quot;] present (count &gt; 0)" name="Campaigns Tests TC_CAMP_002: [data-testid=&quot;campaign-card&quot;] present (count &gt; 0)" time="2.025">
+    </testcase>
+    <testcase classname="Campaigns Tests TC_CAMP_003: filter tab buttons present (count &gt; 0)" name="Campaigns Tests TC_CAMP_003: filter tab buttons present (count &gt; 0)" time="2.016">
+    </testcase>
+    <testcase classname="Campaigns Tests TC_CAMP_004: [data-testid=&quot;submit-interest-btn&quot;] visible" name="Campaigns Tests TC_CAMP_004: [data-testid=&quot;submit-interest-btn&quot;] visible" time="12.067">
+    </testcase>
+    <testcase classname="Campaigns Tests TC_CAMP_005: clicking campaign card changes URL away from /campaigns" name="Campaigns Tests TC_CAMP_005: clicking campaign card changes URL away from /campaigns" time="3.075">
+    </testcase>
+    <testcase classname="Campaigns Tests TC_CAMP_006: text &quot;Create&quot; or &quot;New Campaign&quot; or &quot;Browse&quot; visible" name="Campaigns Tests TC_CAMP_006: text &quot;Create&quot; or &quot;New Campaign&quot; or &quot;Browse&quot; visible" time="2.026">
+    </testcase>
+  </testsuite>
+  <testsuite name="Dashboard Tests" errors="0" failures="0" skipped="0" timestamp="2026-06-13T17:36:58" time="24.976" tests="5">
+    <testcase classname="Dashboard Tests TC_DASH_001: /dashboard body visible" name="Dashboard Tests TC_DASH_001: /dashboard body visible" time="2.033">
+    </testcase>
+    <testcase classname="Dashboard Tests TC_DASH_002: [class*=&quot;card&quot;] elements present (count &gt; 0)" name="Dashboard Tests TC_DASH_002: [class*=&quot;card&quot;] elements present (count &gt; 0)" time="2.039">
+    </testcase>
+    <testcase classname="Dashboard Tests TC_DASH_003: [data-testid=&quot;sidebar&quot;] visible" name="Dashboard Tests TC_DASH_003: [data-testid=&quot;sidebar&quot;] visible" time="2.023">
+    </testcase>
+    <testcase classname="Dashboard Tests TC_DASH_004: h1 or h2 visible" name="Dashboard Tests TC_DASH_004: h1 or h2 visible" time="12.021">
+    </testcase>
+    <testcase classname="Dashboard Tests TC_DASH_005: [data-testid=&quot;wallet-balance&quot;] visible" name="Dashboard Tests TC_DASH_005: [data-testid=&quot;wallet-balance&quot;] visible" time="2.024">
+    </testcase>
+  </testsuite>
+  <testsuite name="Wallet Tests" errors="0" failures="0" skipped="0" timestamp="2026-06-13T17:37:23" time="19.733" tests="4">
+    <testcase classname="Wallet Tests TC_WALL_001: /wallet body visible" name="Wallet Tests TC_WALL_001: /wallet body visible" time="1.696">
+    </testcase>
+    <testcase classname="Wallet Tests TC_WALL_002: [data-testid=&quot;available-balance&quot;] with ₹ or &quot;Balance&quot; text" name="Wallet Tests TC_WALL_002: [data-testid=&quot;available-balance&quot;] with ₹ or &quot;Balance&quot; text" time="1.051">
+    </testcase>
+    <testcase classname="Wallet Tests TC_WALL_003: [data-testid=&quot;transaction-item&quot;] present (count &gt; 0)" name="Wallet Tests TC_WALL_003: [data-testid=&quot;transaction-item&quot;] present (count &gt; 0)" time="11.034">
+    </testcase>
+    <testcase classname="Wallet Tests TC_WALL_004: &quot;Pending&quot; or &quot;Available&quot; or &quot;Locked&quot; text visible" name="Wallet Tests TC_WALL_004: &quot;Pending&quot; or &quot;Available&quot; or &quot;Locked&quot; text visible" time="1.022">
+    </testcase>
+  </testsuite>
+  <testsuite name="Search Tests" errors="0" failures="0" skipped="0" timestamp="2026-06-13T17:37:43" time="17.248" tests="5">
+    <testcase classname="Search Tests TC_SRCH_001: /discover body visible" name="Search Tests TC_SRCH_001: /discover body visible" time="2.031">
+    </testcase>
+    <testcase classname="Search Tests TC_SRCH_002: search input visible" name="Search Tests TC_SRCH_002: search input visible" time="2.013">
+    </testcase>
+    <testcase classname="Search Tests TC_SRCH_003: sendKeys(&quot;fashion&quot;) → card results appear" name="Search Tests TC_SRCH_003: sendKeys(&quot;fashion&quot;) → card results appear" time="4.087">
+    </testcase>
+    <testcase classname="Search Tests TC_SRCH_004: &quot;Filter&quot; text or button visible" name="Search Tests TC_SRCH_004: &quot;Filter&quot; text or button visible" time="2.011">
+    </testcase>
+    <testcase classname="Search Tests TC_SRCH_005: &quot;K&quot; or &quot;M&quot; or &quot;followers&quot; text visible" name="Search Tests TC_SRCH_005: &quot;K&quot; or &quot;M&quot; or &quot;followers&quot; text visible" time="2.013">
+    </testcase>
+  </testsuite>
+  <testsuite name="Auth Tests" errors="0" failures="0" skipped="0" timestamp="2026-06-13T17:38:00" time="10.573" tests="6">
+    <testcase classname="Auth Tests TC_AUTH_001: / loads, title truthy, [data-testid=&quot;logo&quot;] visible" name="Auth Tests TC_AUTH_001: / loads, title truthy, [data-testid=&quot;logo&quot;] visible" time="0.592">
+    </testcase>
+    <testcase classname="Auth Tests TC_AUTH_002: /, Creator and Brand role cards visible" name="Auth Tests TC_AUTH_002: /, Creator and Brand role cards visible" time="0.015">
+    </testcase>
+    <testcase classname="Auth Tests TC_AUTH_003: /#/login, [data-testid=&quot;email-input&quot;] visible" name="Auth Tests TC_AUTH_003: /#/login, [data-testid=&quot;email-input&quot;] visible" time="2.035">
+    </testcase>
+    <testcase classname="Auth Tests TC_AUTH_004: /dashboard URL contains &quot;dashboard&quot;" name="Auth Tests TC_AUTH_004: /dashboard URL contains &quot;dashboard&quot;" time="3.514">
+    </testcase>
+    <testcase classname="Auth Tests TC_AUTH_005: /dashboard unauthenticated → redirects to /auth or /" name="Auth Tests TC_AUTH_005: /dashboard unauthenticated → redirects to /auth or /" time="1.687">
+    </testcase>
+    <testcase classname="Auth Tests TC_AUTH_006: /auth, [data-testid=&quot;google-signin&quot;] visible" name="Auth Tests TC_AUTH_006: /auth, [data-testid=&quot;google-signin&quot;] visible" time="2.026">
+    </testcase>
+  </testsuite>
+  <testsuite name="Contracts Tests" errors="0" failures="0" skipped="0" timestamp="2026-06-13T17:38:11" time="9.261" tests="4">
+    <testcase classname="Contracts Tests TC_CONT_001: /contracts body visible" name="Contracts Tests TC_CONT_001: /contracts body visible" time="0.034">
+    </testcase>
+    <testcase classname="Contracts Tests TC_CONT_002: [data-testid=&quot;contract-card&quot;] present (count &gt; 0)" name="Contracts Tests TC_CONT_002: [data-testid=&quot;contract-card&quot;] present (count &gt; 0)" time="1.025">
+    </testcase>
+    <testcase classname="Contracts Tests TC_CONT_003: [data-testid=&quot;contract-status&quot;] with status text" name="Contracts Tests TC_CONT_003: [data-testid=&quot;contract-status&quot;] with status text" time="1.028">
+    </testcase>
+    <testcase classname="Contracts Tests TC_CONT_004: clicking contract card changes URL" name="Contracts Tests TC_CONT_004: clicking contract card changes URL" time="2.082">
+    </testcase>
+  </testsuite>
+  <testsuite name="Notifications Tests" errors="0" failures="0" skipped="0" timestamp="2026-06-13T17:38:20" time="7.116" tests="4">
+    <testcase classname="Notifications Tests TC_NOTIF_001: /notifications body visible" name="Notifications Tests TC_NOTIF_001: /notifications body visible" time="0.028">
+    </testcase>
+    <testcase classname="Notifications Tests TC_NOTIF_002: [data-testid=&quot;notification-item&quot;] present (count &gt; 0)" name="Notifications Tests TC_NOTIF_002: [data-testid=&quot;notification-item&quot;] present (count &gt; 0)" time="1.022">
+    </testcase>
+    <testcase classname="Notifications Tests TC_NOTIF_003: [data-testid=&quot;mark-all-read&quot;] visible" name="Notifications Tests TC_NOTIF_003: [data-testid=&quot;mark-all-read&quot;] visible" time="0.02">
+    </testcase>
+    <testcase classname="Notifications Tests TC_NOTIF_004: multiple filter buttons present (count &gt; 1)" name="Notifications Tests TC_NOTIF_004: multiple filter buttons present (count &gt; 1)" time="1.014">
+    </testcase>
+  </testsuite>
+  <testsuite name="Collab Room Tests" errors="0" failures="0" skipped="0" timestamp="2026-06-13T17:38:27" time="5.618" tests="4">
+    <testcase classname="Collab Room Tests TC_COLLAB_001: /collab-room/room-001 body visible" name="Collab Room Tests TC_COLLAB_001: /collab-room/room-001 body visible" time="0.025">
+    </testcase>
+    <testcase classname="Collab Room Tests TC_COLLAB_002: [data-testid=&quot;milestone-timeline&quot;] visible" name="Collab Room Tests TC_COLLAB_002: [data-testid=&quot;milestone-timeline&quot;] visible" time="0.703">
+    </testcase>
+    <testcase classname="Collab Room Tests TC_COLLAB_003: [data-testid=&quot;message-area&quot;] visible" name="Collab Room Tests TC_COLLAB_003: [data-testid=&quot;message-area&quot;] visible" time="0.023">
+    </testcase>
+    <testcase classname="Collab Room Tests TC_COLLAB_004: [data-testid=&quot;message-input&quot;] visible" name="Collab Room Tests TC_COLLAB_004: [data-testid=&quot;message-input&quot;] visible" time="0.025">
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -157,7 +157,7 @@ export default function DiscoverScreen() {
     try {
       let query = supabase
         .from('campaigns')
-        .select('*, brands(name)')
+        .select('*')
         .order('created_at', { ascending: false })
         .limit(40);
       if (q?.trim()) query = query.ilike('title', `%${q.trim()}%`);
@@ -166,7 +166,7 @@ export default function DiscoverScreen() {
       if (!error && data && data.length > 0) {
         const formatted = data.map((item: any) => ({
           id: item.id,
-          brandName: item.brands?.name || 'Brand',
+          brandName: item.brand_name || 'Brand Partner',
           title: item.title || 'Campaign',
           description: item.description || '',
           budget: item.budget || item.total_budget,

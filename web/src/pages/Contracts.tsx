@@ -86,7 +86,7 @@ export default function Contracts() {
       ) : (
         contracts.map((c, i) => (
           <motion.div key={c.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
-            className="card" style={{ padding: '20px 24px', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 16 }}>
+            data-testid="contract-card" className="card" style={{ padding: '20px 24px', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 16 }}>
             <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(108,62,244,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <FileText size={20} color="var(--color-primary)" />
             </div>
@@ -99,9 +99,9 @@ export default function Contracts() {
             </div>
             <div style={{ textAlign: 'right' }}>
               <div style={{ fontWeight: 700, fontSize: '0.95rem', marginBottom: 4 }}>
-                ₹{(c.totalAmount ?? c.amount ?? c.content?.amount ?? 0).toLocaleString()}
+                ₹{(c.totalAmount ?? 0).toLocaleString()}
               </div>
-              <span className={`badge ${statusConfig[c.status]?.badge || 'badge-muted'}`}>
+              <span data-testid="contract-status" className={`badge ${statusConfig[c.status]?.badge || 'badge-muted'}`}>
                 {statusConfig[c.status]?.label || 'Unknown'}
               </span>
             </div>

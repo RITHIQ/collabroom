@@ -16,19 +16,19 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 // ─── Notification config ─────────────────────────────────────────────────────
 const NOTIF_CONFIG: Record<string, { icon: string; color: string; filter: string }> = {
-  campaign_match: { icon: 'star', color: '#6B4EFF', filter: 'Campaigns' },
-  deadline_soon: { icon: 'clock', color: '#FF6D00', filter: 'Campaigns' },
-  application_accepted: { icon: 'check-circle', color: '#00C853', filter: 'Campaigns' },
-  new_message: { icon: 'message-circle', color: '#6B4EFF', filter: 'Messages' },
-  payment_received: { icon: 'dollar-sign', color: '#00C853', filter: 'System' },
-  profile_viewed: { icon: 'eye', color: '#999', filter: 'System' },
-  contract_ready: { icon: 'file-text', color: '#FF6D00', filter: 'Campaigns' },
-  milestone_approved: { icon: 'target', color: '#00C853', filter: 'Campaigns' },
-  new_applicant: { icon: 'user-plus', color: '#6B4EFF', filter: 'Campaigns' },
-  campaign_live: { icon: 'zap', color: '#00C853', filter: 'Campaigns' },
-  content_submitted: { icon: 'upload', color: '#FF6D00', filter: 'Campaigns' },
-  payment_processed: { icon: 'credit-card', color: '#00C853', filter: 'System' },
-  system: { icon: 'bell', color: '#999', filter: 'System' },
+  campaign_match:       { icon: 'star',       color: '#6B4EFF', filter: 'Campaigns' },
+  deadline_soon:        { icon: 'clock',      color: '#FF6D00', filter: 'Campaigns' },
+  application_accepted: { icon: 'check-circle',color: '#00C853', filter: 'Campaigns' },
+  new_message:          { icon: 'message-circle', color: '#6B4EFF', filter: 'Messages' },
+  payment_received:     { icon: 'dollar-sign',color: '#00C853', filter: 'System' },
+  profile_viewed:       { icon: 'activity',   color: '#999',   filter: 'System' },
+  contract_ready:       { icon: 'file-text',  color: '#FF6D00', filter: 'Campaigns' },
+  milestone_approved:   { icon: 'award',      color: '#00C853', filter: 'Campaigns' },
+  new_applicant:        { icon: 'user-plus',  color: '#6B4EFF', filter: 'Campaigns' },
+  campaign_live:        { icon: 'zap',        color: '#00C853', filter: 'Campaigns' },
+  content_submitted:    { icon: 'upload',     color: '#FF6D00', filter: 'Campaigns' },
+  payment_processed:    { icon: 'credit-card',color: '#00C853', filter: 'System' },
+  system:               { icon: 'bell',       color: '#999',   filter: 'System' },
 };
 
 const FILTER_TABS = ['All', 'Campaigns', 'Messages', 'System'];
@@ -247,7 +247,7 @@ export default function NotificationsScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       {/* ── Header ── */}
       <View style={styles.header}>
-        <Pressable onPress={() => router.back()} style={styles.backBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+        <Pressable accessibilityLabel="back" onPress={() => router.back()} style={styles.backBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
           <Feather name="arrow-left" size={22} color={colors.textPrimary} />
         </Pressable>
         <Text style={styles.headerTitle}>Notifications</Text>
@@ -364,7 +364,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1, borderBottomColor: colors.border,
     gap: spacing.md,
   },
-  notifRowUnread: { backgroundColor: '#F5F2FF' },
+  notifRowUnread: { backgroundColor: 'rgba(107,78,255,0.08)' },
   iconCircle: { width: 42, height: 42, borderRadius: 21, justifyContent: 'center', alignItems: 'center', flexShrink: 0 },
   notifContent: { flex: 1 },
   notifTitle: { fontSize: 14, fontWeight: '700', color: colors.textPrimary, marginBottom: 3 },
@@ -382,8 +382,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg, paddingVertical: spacing.md, gap: spacing.md,
     borderBottomWidth: 1, borderBottomColor: colors.border,
   },
-  skeletonIcon: { width: 42, height: 42, borderRadius: 21, backgroundColor: '#E0E0E0', flexShrink: 0 },
-  skeletonLine: { height: 12, backgroundColor: '#E0E0E0', borderRadius: 6 },
+  skeletonIcon: { width: 42, height: 42, borderRadius: 21, backgroundColor: 'rgba(255,255,255,0.08)', flexShrink: 0 },
+  skeletonLine: { height: 12, backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: 6 },
 
   // ── Empty ──
   emptyContainer: { alignItems: 'center', justifyContent: 'center', paddingVertical: 80 },

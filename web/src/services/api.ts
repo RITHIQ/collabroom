@@ -32,20 +32,30 @@ function isMockWalletSession(): boolean {
 function getDefaultMockWallet(): Wallet {
   return {
     userId: 'mock-user',
-    availableBalance: 48250,
+    availableBalance: 18500,
     pendingBalance: 7200,
     lockedBalance: 5100,
     currency: 'INR',
     transactions: [
       {
+        id: 'txn_mock_nykaa',
+        type: 'credit',
+        amount: 18500,
+        currency: 'INR',
+        campaignName: 'Nykaa Festive Glam Campaign',
+        status: 'completed',
+        createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3).toISOString(),
+        reference: 'CR-NYKAA-7821',
+      },
+      {
         id: 'txn_mock_1',
         type: 'credit',
         amount: 12500,
         currency: 'INR',
-        campaignName: 'Summer Launch UGC',
+        campaignName: 'Monsoon Glow — Draft Milestone',
         status: 'completed',
-        createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2).toISOString(),
-        reference: 'CR-REF-9121',
+        createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString(),
+        reference: 'CR-GLOW-9121',
       },
       {
         id: 'txn_mock_2',
@@ -53,12 +63,13 @@ function getDefaultMockWallet(): Wallet {
         amount: 5000,
         currency: 'INR',
         status: 'completed',
-        createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 6).toISOString(),
+        createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 14).toISOString(),
         reference: 'WD-REF-2134',
       },
     ],
   };
 }
+
 
 function readMockWallet(): Wallet {
   const raw = localStorage.getItem(MOCK_WALLET_KEY);

@@ -158,7 +158,7 @@ export default function ProfileView() {
   );
 
   return (
-    <div style={{ maxWidth: 860, margin: '0 auto', paddingBottom: 40 }}>
+    <div data-testid="profile-page" style={{ maxWidth: 860, margin: '0 auto', paddingBottom: 40 }}>
 
       {/* ── Back Button ── */}
       <div style={{ padding: '20px 28px 12px' }}>
@@ -214,7 +214,7 @@ export default function ProfileView() {
           <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', alignItems: 'flex-end' }}>
 
             {/* Avatar */}
-            <div style={{
+            <div data-testid="avatar" style={{
               width: 80, height: 80, borderRadius: 20,
               background: avatarBg,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -293,6 +293,16 @@ export default function ProfileView() {
               {niches.map(n => <span key={n} className="niche-chip active" style={{ cursor: 'default' }}>{n}</span>)}
             </div>
           )}
+
+          {/* Completeness bar */}
+          {isOwner && (
+            <div data-testid="completeness-bar" style={{ marginTop: 20 }}>
+               <div style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginBottom: 6 }}>Profile Completeness</div>
+               <div style={{ height: 6, background: 'rgba(255,255,255,0.1)', borderRadius: 3, overflow: 'hidden' }}>
+                 <div style={{ width: '100%', height: '100%', background: 'var(--color-success)' }} />
+               </div>
+            </div>
+          )}
         </motion.div>
 
         {/* ── Stat Bar ── */}
@@ -335,7 +345,7 @@ export default function ProfileView() {
         {/* ── Tabs ── */}
         <div style={{ display: 'flex', gap: 2, marginTop: 20, marginBottom: 18, borderBottom: '1px solid var(--color-border)' }}>
           {tabs.map(tab => (
-            <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
+            <button key={tab.id} data-testid={tab.id === 'social' ? 'social-tab' : undefined} onClick={() => setActiveTab(tab.id)} style={{
               padding: '10px 18px', background: 'none', border: 'none', cursor: 'pointer',
               fontSize: '0.875rem', fontWeight: activeTab === tab.id ? 700 : 500,
               color: activeTab === tab.id ? 'var(--color-primary)' : 'var(--color-text-secondary)',
@@ -404,7 +414,7 @@ export default function ProfileView() {
 
           {/* SOCIAL TAB (creator only) */}
           {activeTab === 'social' && isCreator && (
-            <div>
+            <div data-testid="social-section">
               <h3 style={{ fontWeight: 700, fontSize: '1rem', marginBottom: 16 }}>Connected Platforms</h3>
               {socialLinks.length === 0 ? (
                 <div className="card" style={{ padding: 20, textAlign: 'center', color: 'var(--color-text-muted)', fontSize: '0.88rem' }}>

@@ -1,0 +1,62 @@
+name: Selenium E2E Tests
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  selenium-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          cd collabroom-tests/e2e
+          npm install
+
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Start web app
+        run: |
+          cd web
+          npm install
+          npm run build
+          npm run preview &
+          # Wait for port 3000 to be ready
+          npx wait-on http://localhost:3000
+
+      - name: Generate Dynamic Tests
+        run: |
+          cd collabroom-tests/e2e
+          node utilities/DynamicTestGenerator.js
+
+      - name: Run tests
+        run: |
+          cd collabroom-tests/e2e
+          HEADLESS=true BROWSER=chrome npm test
+
+      - name: Run Excel report generator
+        run: |
+          cd collabroom-tests/e2e
+          node utilities/ExcelReporter.js
+        if: always()
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: selenium-e2e-artifacts
+          path: |
+            collabroom-tests/e2e/excel/E2E_Report.xlsx
+            collabroom-tests/e2e/reports/
+            collabroom-tests/e2e/logs/
+          retention-days: 30

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import {
   StyleSheet, Text, View, ScrollView,
-  Pressable, RefreshControl, ActivityIndicator,
+  Pressable, RefreshControl, ActivityIndicator, Switch,
 } from 'react-native';
 import { MotiView } from 'moti';
 import { useRouter } from 'expo-router';
@@ -34,12 +34,14 @@ function StatCard({
 
 // ─── Quick Action Button ──────────────────────────────────────────────────────
 function ActionBtn({
-  icon, label, accent, onPress,
+  icon, label, accent, onPress, testID, accessibilityLabel
 }: {
-  icon: string; label: string; accent: string; onPress: () => void;
+  icon: string; label: string; accent: string; onPress: () => void; testID?: string; accessibilityLabel?: string;
 }) {
   return (
     <Pressable
+      testID={testID || label}
+      accessibilityLabel={accessibilityLabel}
       style={({ pressed }) => [styles.actionBtn, pressed && styles.actionBtnPressed]}
       onPress={onPress}
     >
@@ -69,6 +71,8 @@ export default function HomeScreen() {
   const [deliveryRate, setDeliveryRate]   = useState('—');
   const [brandScore, setBrandScore]       = useState<number | string>('—');
   const [campaigns, setCampaigns]         = useState<any[]>([]);
+  const [workModeOn, setWorkModeOn]       = useState(true);
+  const [creatorId, setCreatorId]         = useState<string | null>(null);
 
   const fetchData = useCallback(async () => {
     try {
@@ -89,13 +93,16 @@ export default function HomeScreen() {
       // ── Creator branch
       const { data: creator } = await supabase
         .from('creators')
-        .select('id,creator_score,on_time_delivery_rate')
+        .select('id,creator_score,on_time_delivery_rate,availability')
         .eq('user_id', user.id).maybeSingle();
 
       if (creator?.id) {
         setIsBrand(false);
+        setCreatorId(creator.id);
         setCreatorScore(creator.creator_score || 85);
         setDeliveryRate(`${creator.on_time_delivery_rate || 98}%`);
+        // Work mode: 'Currently unavailable' means OFF, everything else is ON
+        setWorkModeOn((creator.availability || '') !== 'Currently unavailable');
 
         const { count } = await supabase
           .from('campaign_applications')
@@ -132,13 +139,13 @@ export default function HomeScreen() {
         const { count } = await supabase
           .from('campaigns')
           .select('*', { count: 'exact', head: true })
-          .eq('brand_id', brand.id).eq('status', 'active');
+          .eq('brand_user_id', user.id).eq('status', 'active');
         setActiveCampaigns(count || 0);
 
         const { data: cams } = await supabase
           .from('campaigns')
           .select('id,title,budget,status')
-          .eq('brand_id', brand.id)
+          .eq('brand_user_id', user.id)
           .order('created_at', { ascending: false }).limit(3);
         if (cams) {
           setCampaigns(cams.map((c: any) => ({
@@ -150,6 +157,15 @@ export default function HomeScreen() {
       console.log('Dashboard fetch error', e);
     }
   }, []);
+
+  // Toggle work mode — writes availability to creators table
+  const handleToggleWorkMode = useCallback(async (value: boolean) => {
+    setWorkModeOn(value);
+    if (!creatorId) return;
+    await supabase.from('creators').update({
+      availability: value ? 'Immediately' : 'Currently unavailable',
+    }).eq('id', creatorId);
+  }, [creatorId]);
 
   useEffect(() => {
     (async () => { setLoading(true); await fetchData(); setLoading(false); })();
@@ -181,16 +197,16 @@ export default function HomeScreen() {
   // Role-aware quick actions
   const actions = isBrand
     ? [
-        { icon: 'users',       label: 'Find Creators', accent: '#ffffff', onPress: () => router.push('/discover' as any) },
-        { icon: 'plus-circle', label: 'New Campaign',  accent: '#4ade80', onPress: () => router.push('/campaigns' as any) },
-        { icon: 'dollar-sign', label: 'Payments',      accent: '#60a5fa', onPress: () => router.push('/wallet' as any) },
-        { icon: 'zap',         label: 'AI Brief',      accent: '#fbbf24', onPress: () => router.push('/ai-brief' as any) },
+        { icon: 'users',       label: 'Find Creators', accent: '#ffffff', onPress: () => router.push('/(tabs)/discover' as any) },
+        { icon: 'plus-circle', label: 'New Campaign',  accent: '#4ade80', onPress: () => router.push('/(tabs)/campaigns' as any) },
+        { icon: 'message-square', label: 'Inbox',      accent: '#60a5fa', onPress: () => router.push('/(tabs)/messages' as any), accessibilityLabel: 'View Inbox' },
+        { icon: 'zap',         label: 'AI Brief',      accent: '#fbbf24', onPress: () => router.push('/(tabs)/ai-brief' as any) },
       ]
     : [
-        { icon: 'search',      label: 'Find Work',     accent: '#ffffff', onPress: () => router.push('/discover' as any) },
-        { icon: 'dollar-sign', label: 'Wallet',        accent: '#4ade80', onPress: () => router.push('/wallet' as any) },
+        { icon: 'search',      label: 'Find Work',     accent: '#ffffff', onPress: () => router.push('/(tabs)/discover' as any), accessibilityLabel: 'Find Work' },
+        { icon: 'message-square', label: 'Inbox',      accent: '#4ade80', onPress: () => router.push('/(tabs)/messages' as any), accessibilityLabel: 'View Inbox' },
         { icon: 'file-text',   label: 'Contracts',     accent: '#60a5fa', onPress: () => router.push('/contracts' as any) },
-        { icon: 'zap',         label: 'Colab AI',      accent: '#fbbf24', onPress: () => router.push('/ai-brief' as any) },
+        { icon: 'zap',         label: 'Colab AI',      accent: '#fbbf24', onPress: () => router.push('/(tabs)/ai-brief' as any) },
       ];
 
   if (loading) {
@@ -218,8 +234,15 @@ export default function HomeScreen() {
       >
         {/* ── Header ── */}
         <MotiView from={{ opacity: 0, translateY: -10 }} animate={{ opacity: 1, translateY: 0 }}>
-          <Text style={styles.greeting}>{greeting},</Text>
-          <Text style={styles.name}>{userName} 👋</Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View>
+              <Text style={styles.greeting}>{greeting},</Text>
+              <Text style={styles.name}>{userName} 👋</Text>
+            </View>
+            <Pressable accessibilityLabel="notifications" onPress={() => router.push('/notifications' as any)}>
+              <Feather name="bell" size={24} color={colors.textPrimary} />
+            </Pressable>
+          </View>
           <Text style={styles.subtitle}>
             {isBrand ? 'Your brand dashboard' : 'Your creator dashboard'}
           </Text>
@@ -231,16 +254,22 @@ export default function HomeScreen() {
             from={{ opacity: 0, translateY: 8 }}
             animate={{ opacity: 1, translateY: 0 }}
             transition={{ delay: 150 }}
-            style={styles.workModeBanner}
+            style={[styles.workModeBanner, !workModeOn && styles.workModeBannerOff]}
           >
             <View style={styles.workModeLeft}>
-              <Text style={styles.workModeTitle}>Work Mode</Text>
-              <Text style={styles.workModeSub}>Toggle your availability to brands</Text>
+              <Text testID="Work Mode" style={styles.workModeTitle}>Work Mode</Text>
+              <Text style={styles.workModeSub}>
+                {workModeOn ? 'Visible to brands — you are accepting work' : 'Hidden from brands — unavailable'}
+              </Text>
             </View>
-            <View style={styles.workModeStatus}>
-              <View style={styles.onlineDot} />
-              <Text style={styles.workModeStatusText}>Available</Text>
-            </View>
+            <Switch
+              accessibilityLabel="Work Mode"
+              value={workModeOn}
+              onValueChange={handleToggleWorkMode}
+              trackColor={{ false: 'rgba(255,255,255,0.10)', true: 'rgba(74,222,128,0.35)' }}
+              thumbColor={workModeOn ? '#4ade80' : 'rgba(255,255,255,0.35)'}
+              ios_backgroundColor="rgba(255,255,255,0.10)"
+            />
           </MotiView>
         )}
 
@@ -264,7 +293,7 @@ export default function HomeScreen() {
           <Text style={styles.sectionTitle}>
             {isBrand ? 'Recent Campaigns' : 'Active Campaigns'}
           </Text>
-          <Pressable onPress={() => router.push('/campaigns' as any)}>
+          <Pressable onPress={() => router.push('/(tabs)/campaigns' as any)}>
             <Text style={styles.seeAll}>See All</Text>
           </Pressable>
         </View>
@@ -305,7 +334,7 @@ export default function HomeScreen() {
             <Text style={styles.emptyText}>
               {isBrand ? 'No campaigns yet' : 'No active campaigns'}
             </Text>
-            <Pressable onPress={() => router.push('/discover' as any)}>
+            <Pressable onPress={() => router.push('/(tabs)/discover' as any)}>
               <Text style={styles.emptyLink}>
                 {isBrand ? 'Create a campaign' : 'Browse the marketplace'}
               </Text>
@@ -365,6 +394,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(74,222,128,0.06)',
     borderWidth: 1, borderColor: 'rgba(74,222,128,0.18)',
     borderRadius: radius.md, padding: spacing.md, marginBottom: spacing.xl,
+  },
+  workModeBannerOff: {
+    backgroundColor: 'rgba(255,255,255,0.03)',
+    borderColor: 'rgba(255,255,255,0.08)',
   },
   workModeLeft: {},
   workModeTitle: { fontSize: 13, fontWeight: '700', color: colors.textPrimary },

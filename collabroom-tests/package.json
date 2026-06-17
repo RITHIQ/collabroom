@@ -1,0 +1,10 @@
+{
+  "name": "collabroom-tests",
+  "version": "1.0.0",
+  "scripts": {
+    "test:web": "cd selenium && npm install && npm test",
+    "test:mobile": "cd appium && npm install && npm test",
+    "test:dast": "cd dast && npm install && npm test",
+    "test:all": "npm run test:dast && npm run test:web && npm run test:mobile && node reports/generate-reports.js"
+  }
+}

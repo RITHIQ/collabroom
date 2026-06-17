@@ -9,7 +9,7 @@
  * HOW TO RUN:
  * 1. Update SUPABASE_URL and SUPABASE_KEY below
  * 2. Update EMAIL/PASSWORD credentials for your 3 accounts
- * 3. Run: npx ts-node seed_complete_presentation.ts
+ * 3. Run: npx ts-node scripts/seed_complete_presentation.ts
  * 
  * ============================================================================
  */
