@@ -16,7 +16,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 18
+        node-version: 20
 
     - name: Install dependencies (web)
       working-directory: ./web
@@ -24,12 +24,12 @@ jobs:
 
     - name: Start Vite dev server
       working-directory: ./web
-      run: npm run dev &
+      run: npm run dev -- --host 127.0.0.1 &
       env:
         PORT: 8081
 
     - name: Wait for dev server to be ready
-      run: npx wait-on http://localhost:8081
+      run: npx wait-on http://127.0.0.1:8081
 
     - name: Install dependencies (tests)
       working-directory: ./collabroom-tests/selenium
