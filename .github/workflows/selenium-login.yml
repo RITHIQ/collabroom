@@ -87,18 +87,24 @@ jobs:
         run: npm test
         continue-on-error: true
 
+      - name: Generate Excel Report
+        working-directory: collabroom-tests/selenium
+        if: always()
+        run: node generate-excel.js
+
       - name: Upload E2E test report
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: selenium-e2e-report
-          path: collabroom-tests/selenium/jest-results.json
+          path: |
+            collabroom-tests/selenium/jest-results.json
+            collabroom-tests/selenium/reports/E2E_Test_Report.xlsx
           retention-days: 30
 
   selenium-pr:
     name: 🧪 Selenium Tests (PR — localhost)
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
 
     steps:
       - name: Checkout repository
@@ -151,10 +157,17 @@ jobs:
         run: npm test
         continue-on-error: true
 
+      - name: Generate Excel Report
+        working-directory: collabroom-tests/selenium
+        if: always()
+        run: node generate-excel.js
+
       - name: Upload report
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: selenium-pr-report
-          path: collabroom-tests/selenium/jest-results.json
+          path: |
+            collabroom-tests/selenium/jest-results.json
+            collabroom-tests/selenium/reports/E2E_Test_Report.xlsx
           retention-days: 7
